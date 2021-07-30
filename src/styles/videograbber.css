@@ -1,0 +1,77 @@
+#topbar {
+  text-align: center;
+}
+/* #downloadImageHref {
+  pointer-events: none;
+} */
+.canvas__mirror {
+  pointer-events: none;
+  border: 1px solid black;
+  height: 100%;
+  width: 100%;
+}
+
+#canvas {
+  display: none;
+}
+#content {
+  padding: 20px;
+  text-align: center;
+}
+/* #video-component {
+  display: inline;
+}
+#video-component video {
+  height: unset !important;
+} */
+#snapbutton,
+#downloadbtn {
+  background-color: #010101;
+  border: 1px solid #010101;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 5px;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+
+#snapbutton:hover,
+#downloadbtn:hover {
+  box-shadow: 5px 4px 9px 1px rgba(0, 0, 0, 0.24);
+}
+.animate-button {
+  -webkit-animation: bounce 0.3s infinite alternate;
+  -moz-animation: bounce 0.3s infinite alternate;
+  animation: bounce 0.3s infinite alternate;
+}
+@-webkit-keyframes bounce {
+  to {
+    -webkit-transform: scale(1.1);
+  }
+}
+@-moz-keyframes bounce {
+  to {
+    -moz-transform: scale(1.1);
+  }
+}
+@keyframes bounce {
+  to {
+    transform: scale(1.1);
+  }
+}
+.dissabled-buttons {
+  pointer-events: none;
+}
+.player-wrapper {
+  position: relative;
+  padding-top: 56.25%; /* 720 / 1280 = 0.5625 */
+}
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  border-radius: 0.55rem;
+  overflow: hidden;
+}
