@@ -1,11 +1,12 @@
 {
-  "name": "productivity-utilities",
+  "name": "updating-productivity-utility",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
     "bootstrap": "5.0.2",
+    "browser-image-compression": "1.0.14",
     "firebase": "8.8.0",
     "react": "17.0.2",
     "react-bootstrap": "1.6.1",
