@@ -85,11 +85,16 @@ export default function VideoPoster() {
   return (
     <>
       <Container className="pt-5">
+        <div className="text-center mb-5">
+          <h1>Video Poster Creator</h1>
+        </div>
         <Row className="d-flex justify-content-around">
           <Col xs md="10" lg="8">
             <Row id="topbar">
               <Form.Group className="mb-3">
-                <Form.Label>Add Video URL</Form.Label>
+                <Form.Label>
+                  Add Video URL (And <strong>Press Enter</strong>)
+                </Form.Label>
                 <Form.Control
                   // ref={this.input}
                   onKeyPress={handleKeyPress}
@@ -168,12 +173,6 @@ export default function VideoPoster() {
         <Row xs={1} md={4} className="g-4">
           <Col>
             <Card>
-              <LinkContainer to="/pdf-merger">
-                <Card.Img
-                  variant="top"
-                  src="https://via.placeholder.com/180x90"
-                />
-              </LinkContainer>
               <Card.Body>
                 <LinkContainer to="/pdf-merger">
                   <Card.Title>PDF Merge</Card.Title>
@@ -191,12 +190,6 @@ export default function VideoPoster() {
           </Col>
           <Col>
             <Card>
-              <LinkContainer to="/pdf-meta-editor">
-                <Card.Img
-                  variant="top"
-                  src="https://via.placeholder.com/180x90"
-                />
-              </LinkContainer>
               <Card.Body>
                 <LinkContainer to="/pdf-meta-editor">
                   <Card.Title>PDF Meta Editor</Card.Title>
@@ -214,12 +207,6 @@ export default function VideoPoster() {
           </Col>
           <Col>
             <Card>
-              <LinkContainer to="/image-optimizer">
-                <Card.Img
-                  variant="top"
-                  src="https://via.placeholder.com/180x90"
-                />
-              </LinkContainer>
               <Card.Body>
                 <LinkContainer to="/image-optimizer">
                   <Card.Title>Image Optimizer</Card.Title>
@@ -237,12 +224,6 @@ export default function VideoPoster() {
           </Col>
           <Col>
             <Card>
-              <LinkContainer to="/image-cropper">
-                <Card.Img
-                  variant="top"
-                  src="https://via.placeholder.com/180x90"
-                />
-              </LinkContainer>
               <Card.Body>
                 <LinkContainer to="/image-cropper">
                   <Card.Title>Image Cropper</Card.Title>
