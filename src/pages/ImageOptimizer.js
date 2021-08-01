@@ -163,7 +163,7 @@ export default function ImageOptimizer() {
           <Col>
             <Card>
               <Card.Body>
-                <LinkContainer to="/pdf-merger">
+                <LinkContainer to="/pdf-merger" style={cursorPointer}>
                   <Card.Title>PDF Merge</Card.Title>
                 </LinkContainer>
                 <Card.Text>
@@ -180,7 +180,7 @@ export default function ImageOptimizer() {
           <Col>
             <Card>
               <Card.Body>
-                <LinkContainer to="/pdf-meta-editor">
+                <LinkContainer to="/pdf-meta-editor" style={cursorPointer}>
                   <Card.Title>PDF Meta Editor</Card.Title>
                 </LinkContainer>
                 <Card.Text>
@@ -197,7 +197,7 @@ export default function ImageOptimizer() {
           <Col>
             <Card>
               <Card.Body>
-                <LinkContainer to="/image-cropper">
+                <LinkContainer to="/image-cropper" style={cursorPointer}>
                   <Card.Title>Image Cropper</Card.Title>
                 </LinkContainer>
                 <Card.Text>
@@ -205,7 +205,7 @@ export default function ImageOptimizer() {
                   lead-in to additional content. This content is a little bit
                   longer.
                 </Card.Text>
-                <LinkContainer to="/image-cropper">
+                <LinkContainer to="/image-cropper" style={cursorPointer}>
                   <Card.Link>Visit</Card.Link>
                 </LinkContainer>
               </Card.Body>
@@ -214,7 +214,7 @@ export default function ImageOptimizer() {
           <Col>
             <Card>
               <Card.Body>
-                <LinkContainer to="/video-poster">
+                <LinkContainer to="/video-poster" style={cursorPointer}>
                   <Card.Title>Video Poster</Card.Title>
                 </LinkContainer>
                 <Card.Text>

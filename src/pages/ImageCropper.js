@@ -5,6 +5,9 @@ import { Row, Col, Card, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 export default function ImageCropper() {
+  const cursorPointer = {
+    cursor: "pointer"
+  };
   return (
     <>
       {/* cropper body section ends here */}
@@ -12,14 +15,8 @@ export default function ImageCropper() {
         <Row xs={1} md={4} className="g-4">
           <Col>
             <Card>
-              <LinkContainer to="/pdf-merger">
-                <Card.Img
-                  variant="top"
-                  src="https://via.placeholder.com/180x90"
-                />
-              </LinkContainer>
               <Card.Body>
-                <LinkContainer to="/pdf-merger">
+                <LinkContainer to="/pdf-merger" style={cursorPointer}>
                   <Card.Title>PDF Merge</Card.Title>
                 </LinkContainer>
                 <Card.Text>
@@ -35,14 +32,8 @@ export default function ImageCropper() {
           </Col>
           <Col>
             <Card>
-              <LinkContainer to="/pdf-meta-editor">
-                <Card.Img
-                  variant="top"
-                  src="https://via.placeholder.com/180x90"
-                />
-              </LinkContainer>
               <Card.Body>
-                <LinkContainer to="/pdf-meta-editor">
+                <LinkContainer to="/pdf-meta-editor" style={cursorPointer}>
                   <Card.Title>PDF Meta Editor</Card.Title>
                 </LinkContainer>
                 <Card.Text>
@@ -58,14 +49,8 @@ export default function ImageCropper() {
           </Col>
           <Col>
             <Card>
-              <LinkContainer to="/image-optimizer">
-                <Card.Img
-                  variant="top"
-                  src="https://via.placeholder.com/180x90"
-                />
-              </LinkContainer>
               <Card.Body>
-                <LinkContainer to="/image-optimizer">
+                <LinkContainer to="/image-optimizer" style={cursorPointer}>
                   <Card.Title>Image Optimizer</Card.Title>
                 </LinkContainer>
                 <Card.Text>
@@ -81,14 +66,8 @@ export default function ImageCropper() {
           </Col>
           <Col>
             <Card>
-              <LinkContainer to="/video-poster">
-                <Card.Img
-                  variant="top"
-                  src="https://via.placeholder.com/180x90"
-                />
-              </LinkContainer>
               <Card.Body>
-                <LinkContainer to="/video-poster">
+                <LinkContainer to="/video-poster" style={cursorPointer}>
                   <Card.Title>Video Poster</Card.Title>
                 </LinkContainer>
                 <Card.Text>

@@ -16,7 +16,11 @@ import placeHolderImage from "../img/video-poster-placeholder.jpg";
 export default function VideoPoster() {
   const [videoURL, setvideoURL] = useState("");
   const [addtoVideoSrc, setaddtoVideoSrc] = useState("#");
-  // const inputEl = useRef(null);
+
+  const cursorPointer = {
+    cursor: "pointer"
+  };
+
   function handleKeyPress(e) {
     if (e.charCode === 13) {
       if (Object.keys(videoURL).length === 0) {
@@ -174,7 +178,7 @@ export default function VideoPoster() {
           <Col>
             <Card>
               <Card.Body>
-                <LinkContainer to="/pdf-merger">
+                <LinkContainer to="/pdf-merger" style={cursorPointer}>
                   <Card.Title>PDF Merge</Card.Title>
                 </LinkContainer>
                 <Card.Text>
@@ -191,7 +195,7 @@ export default function VideoPoster() {
           <Col>
             <Card>
               <Card.Body>
-                <LinkContainer to="/pdf-meta-editor">
+                <LinkContainer to="/pdf-meta-editor" style={cursorPointer}>
                   <Card.Title>PDF Meta Editor</Card.Title>
                 </LinkContainer>
                 <Card.Text>
@@ -208,7 +212,7 @@ export default function VideoPoster() {
           <Col>
             <Card>
               <Card.Body>
-                <LinkContainer to="/image-optimizer">
+                <LinkContainer to="/image-optimizer" style={cursorPointer}>
                   <Card.Title>Image Optimizer</Card.Title>
                 </LinkContainer>
                 <Card.Text>
@@ -225,7 +229,7 @@ export default function VideoPoster() {
           <Col>
             <Card>
               <Card.Body>
-                <LinkContainer to="/image-cropper">
+                <LinkContainer to="/image-cropper" style={cursorPointer}>
                   <Card.Title>Image Cropper</Card.Title>
                 </LinkContainer>
                 <Card.Text>

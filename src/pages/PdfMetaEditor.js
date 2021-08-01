@@ -24,6 +24,9 @@ export default function PdfMetaEditor() {
     modificationDate: ""
   });
 
+  const cursorPointer = {
+    cursor: "pointer"
+  };
   function onDocumentLoadSuccess({ numPages }) {
     setPageNumber(1);
   }
@@ -36,19 +39,12 @@ export default function PdfMetaEditor() {
     setNameOfFile((nameOfFile) => e.target.files[0].name);
   }
 
-  useEffect(() => {
-    console.log(nameOfFile);
-  }, [nameOfFile]);
-
   async function readDocumentMetadata(url) {
-    //const mergedPdf = await PDFDocument.create();
     const existingPdfBytes = await fetch(url).then((res) => res.arrayBuffer());
     var bytes = new Uint8Array(existingPdfBytes);
     const pdfDoc = await PDFDocument.load(bytes, {
       updateMetadata: false
     });
-
-    // setAddtitleInput((addtitleInput) => pdfDoc.getTitle());
 
     if (pdfDoc.getTitle() !== undefined) {
       setAddtitleInput((addtitleInput) => pdfDoc.getTitle());
@@ -87,8 +83,6 @@ export default function PdfMetaEditor() {
   }
 
   async function editDocumentMetadata(MeditPdf) {
-    // console.log(MeditPdf);
-    //const pdfDoc = await PDFDocument.create();
     const existingPdfBytes = await fetch(MeditPdf).then((res) =>
       res.arrayBuffer()
     );
@@ -134,11 +128,7 @@ export default function PdfMetaEditor() {
         </div>
         <Row>
           <Col className="d-flex justify-content-center" xl="5" lg="5" md="5">
-            <Document
-              file={pdfObjectUrl}
-              options={{ workerSrc: "/pdf.worker.js" }}
-              onLoadSuccess={onDocumentLoadSuccess}
-            >
+            <Document file={pdfObjectUrl} onLoadSuccess={onDocumentLoadSuccess}>
               <Page
                 pageNumber={pageNumber}
                 scale={0.4}
@@ -235,7 +225,7 @@ export default function PdfMetaEditor() {
           <Col>
             <Card>
               <Card.Body>
-                <LinkContainer to="/pdf-merger">
+                <LinkContainer to="/pdf-merger" style={cursorPointer}>
                   <Card.Title>PDF Merge</Card.Title>
                 </LinkContainer>
                 <Card.Text>
@@ -252,7 +242,7 @@ export default function PdfMetaEditor() {
           <Col>
             <Card>
               <Card.Body>
-                <LinkContainer to="/image-optimizer">
+                <LinkContainer to="/image-optimizer" style={cursorPointer}>
                   <Card.Title>Image Optimizer</Card.Title>
                 </LinkContainer>
                 <Card.Text>
@@ -269,7 +259,7 @@ export default function PdfMetaEditor() {
           <Col>
             <Card>
               <Card.Body>
-                <LinkContainer to="/image-cropper">
+                <LinkContainer to="/image-cropper" style={cursorPointer}>
                   <Card.Title>Image Cropper</Card.Title>
                 </LinkContainer>
                 <Card.Text>
@@ -286,7 +276,7 @@ export default function PdfMetaEditor() {
           <Col>
             <Card>
               <Card.Body>
-                <LinkContainer to="/video-poster">
+                <LinkContainer to="/video-poster" style={cursorPointer}>
                   <Card.Title>Video Poster</Card.Title>
                 </LinkContainer>
                 <Card.Text>
