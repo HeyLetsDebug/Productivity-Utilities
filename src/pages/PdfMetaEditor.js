@@ -1,9 +1,9 @@
+import "../styles/materialStyle.css";
 import "../styles/pdfMetaEdit.css";
-import React, { Component } from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import { Row, Col, Card, Container, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { mergeIntoTypedArray, PDFDocument } from "pdf-lib";
+import { PDFDocument } from "pdf-lib";
 import { Document, Page, pdfjs } from "react-pdf";
 import dummyPDF from "../img/dummy-pdf-placeholder.pdf";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
@@ -14,8 +14,15 @@ export default function PdfMetaEditor() {
   const [nameOfFile, setNameOfFile] = useState("");
   const [titleInput, setTitleInput] = useState("");
   const [addtitleInput, setAddtitleInput] = useState("No Title Found");
+  const [pageNumber, setPageNumber] = useState(1);
 
-  const [pageNumber, setPageNumber] = useState(1); //setting 1 to show fisrt page
+  const [additionalDetails, setAdditionalDetails] = useState({
+    authorOfPdf: "No Value Found",
+    subjectOfPdf: "No Value Found",
+    creatorOfPdf: "No Value Found",
+    creationDateOfPdf: "",
+    modificationDate: ""
+  });
 
   function onDocumentLoadSuccess({ numPages }) {
     setPageNumber(1);
@@ -30,13 +37,8 @@ export default function PdfMetaEditor() {
   }
 
   useEffect(() => {
-    readDocumentMetadata(pdfObjectUrl);
-    setDisable(false);
-  }, [pdfObjectUrl]);
-
-  useEffect(() => {
-    console.log(addtitleInput);
-  }, [addtitleInput]);
+    console.log(nameOfFile);
+  }, [nameOfFile]);
 
   async function readDocumentMetadata(url) {
     //const mergedPdf = await PDFDocument.create();
@@ -53,10 +55,35 @@ export default function PdfMetaEditor() {
     } else {
       setAddtitleInput((addtitleInput) => "No Title Found");
     }
+
+    setAdditionalDetails({
+      ...additionalDetails,
+      authorOfPdf: pdfDoc.getTitle(),
+      subjectOfPdf: pdfDoc.getSubject(),
+      creatorOfPdf: pdfDoc.getCreator(),
+      creationDateOfPdf: pdfDoc.getCreationDate(),
+      modificationDate: pdfDoc.getModificationDate()
+    });
+
+    const {
+      authorOfPdf,
+      subjectOfPdf,
+      creatorOfPdf,
+      creationDateOfPdf,
+      modificationDate
+    } = additionalDetails;
   }
+
+  useEffect(() => {
+    readDocumentMetadata(pdfObjectUrl);
+    setDisable(false);
+  }, [pdfObjectUrl]);
 
   function handleModify() {
     editDocumentMetadata(pdfObjectUrl);
+  }
+  function handleRemoveMeta() {
+    removeDocumentMetadata(pdfObjectUrl);
   }
 
   async function editDocumentMetadata(MeditPdf) {
@@ -65,8 +92,6 @@ export default function PdfMetaEditor() {
     const existingPdfBytes = await fetch(MeditPdf).then((res) =>
       res.arrayBuffer()
     );
-    // var bytes = new Uint8Array(existingPdfBytes);
-    console.log(existingPdfBytes);
 
     const pdfDoc = await PDFDocument.load(existingPdfBytes);
     pdfDoc.setTitle(titleInput);
@@ -75,26 +100,40 @@ export default function PdfMetaEditor() {
 
     const pdfBytes = await pdfDoc.save();
 
-    console.log(pdfBytes);
     var blob = new Blob([pdfBytes], { type: "application/pdf" });
     var link = document.createElement("a");
     link.href = window.URL.createObjectURL(blob);
-    link.download = "myFileName.pdf";
+    link.download = nameOfFile;
     link.click();
-    //downloadFile(new Blob(pdfBytes, {type: "application/pdf"}), nameOfFile);
+  }
 
-    //download(pdfBytes, nameOfFile, "application/pdf");
-    //saveAs(pdfBytes, nameOfFile, {type: "application/pdf"});
+  async function removeDocumentMetadata(RemMeditPdf) {
+    const existingPdfBytes = await fetch(RemMeditPdf).then((res) =>
+      res.arrayBuffer()
+    );
+
+    const pdfDoc = await PDFDocument.load(existingPdfBytes);
+    pdfDoc.setTitle("");
+    pdfDoc.setProducer("");
+    pdfDoc.setCreator("");
+
+    const pdfBytes = await pdfDoc.save();
+
+    var blob = new Blob([pdfBytes], { type: "application/pdf" });
+    var link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+    link.download = nameOfFile;
+    link.click();
   }
 
   return (
     <>
       <Container id="meta-editor" className="pt-5">
-        <div className="text-center">
+        <div className="text-center mb-5">
           <h1>PDF Meta Data Editor</h1>
         </div>
         <Row>
-          <Col className="d-flex justify-content-center">
+          <Col className="d-flex justify-content-center" xl="5" lg="5" md="5">
             <Document
               file={pdfObjectUrl}
               options={{ workerSrc: "/pdf.worker.js" }}
@@ -102,42 +141,92 @@ export default function PdfMetaEditor() {
             >
               <Page
                 pageNumber={pageNumber}
-                scale={0.3}
+                scale={0.4}
                 renderAnnotationLayer={false}
               />
             </Document>
           </Col>
           <Col>
-            <p>Current PDF Title : {addtitleInput}</p>
-            <input
-              className="change-title-input mt-2 btn btn-dark w-100"
-              type="file"
-              accept="application/pdf"
-              id="file-here"
-              onChange={handlePDFChange}
-              placeholder="Paste dam content path here.."
-            />
-            <div className="loadPDF-button-wrapper"></div>
-            <input
-              className="change-title-input"
-              type="text"
-              id="title-of-pdf"
-              value={titleInput}
-              onChange={(e) => setTitleInput(e.target.value)}
-              placeholder="Wait till title of PDF shows here..."
-            />
-            <div className="modify-button-wrapper">
-              <Button
-                id="modify-button"
-                disabled={disable}
-                onClick={handleModify}
-              >
-                Modify & Download
-              </Button>
-              <Button id="remove-meta-button" disabled={disable}>
-                Remove Title & Download
-              </Button>
-            </div>
+            <Row>
+              <Col>
+                <input
+                  className="change-title-input btn btn-dark w-100"
+                  type="file"
+                  accept="application/pdf"
+                  id="file-here"
+                  onChange={handlePDFChange}
+                  placeholder="Paste dam content path here.."
+                />
+              </Col>
+            </Row>
+            <Row className="d-flex flex-column justify-content-center align-items-center mt-4 mb-4">
+              <Col>
+                <p className="w-100">
+                  <strong>Current PDF Title :</strong> {addtitleInput}
+                </p>
+              </Col>
+              <Col>
+                <input
+                  className="change-title-input w-100"
+                  type="text"
+                  id="title-of-pdf"
+                  value={titleInput}
+                  onChange={(e) => setTitleInput(e.target.value)}
+                  placeholder="Set new title for the PDF here..."
+                />
+              </Col>
+            </Row>
+            <Row className="modify-button-wrapper">
+              <Col>
+                <Button
+                  id="modify-button"
+                  disabled={disable}
+                  onClick={handleModify}
+                >
+                  Modify & Download
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  id="remove-meta-button"
+                  disabled={disable}
+                  onClick={handleRemoveMeta}
+                >
+                  Remove Title & Download
+                </Button>
+              </Col>
+            </Row>
+            <Row className="mt-3">
+              <Col className="border border-info border-2 rounded pt-3">
+                <h5 className="mb-3">Additional Detail About PDF</h5>
+                <p className="w-100">
+                  <strong>Author :</strong>{" "}
+                  {additionalDetails.authorOfPdf !== undefined
+                    ? additionalDetails.authorOfPdf
+                    : "No Value Found"}
+                </p>
+                <p className="w-100">
+                  <strong>Subject :</strong>{" "}
+                  {additionalDetails.subjectOfPdf !== undefined
+                    ? additionalDetails.subjectOfPdf
+                    : "No Value Found"}
+                </p>
+                <p className="w-100">
+                  <strong>Creator :</strong>{" "}
+                  {additionalDetails.creatorOfPdf !== undefined
+                    ? additionalDetails.creatorOfPdf
+                    : "No Value Found"}
+                </p>
+                <p className="w-100">
+                  <strong>Creation Date :</strong>{" "}
+                  {additionalDetails.creationDateOfPdf.toString()}
+                </p>
+                <p className="w-100">
+                  <strong>Modification Date :</strong>{" "}
+                  {additionalDetails.modificationDate.toString()}
+                </p>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>

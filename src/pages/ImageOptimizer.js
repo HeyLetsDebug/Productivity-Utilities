@@ -1,3 +1,4 @@
+import "../styles/materialStyle.css";
 import React from "react";
 import { useState, useEffect } from "react";
 import { Row, Col, Card, Container } from "react-bootstrap";
@@ -62,7 +63,7 @@ export default function ImageOptimizer() {
   return (
     <>
       <Container className="pt-5">
-        <div className="text-center">
+        <div className="text-center mb-5">
           <h1>Image Compressor</h1>
         </div>
 
