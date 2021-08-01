@@ -1,8 +1,11 @@
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import brandLogo from "./img/ab-decodes-branding.png";
+import brandLogo from "./img/moc-brand-logo.png";
 
 function PrimaryHeader() {
+  const heighter = {
+    maxHeight: "60px"
+  };
   return (
     <>
       <Navbar bg="dark" variant="dark" sticky="top">
@@ -13,6 +16,7 @@ function PrimaryHeader() {
                 alt=""
                 //src={require("./img/ab-decodes-branding.png")}
                 src={brandLogo}
+                style={heighter}
                 className="d-inline-block align-top"
               />{" "}
             </Navbar.Brand>
