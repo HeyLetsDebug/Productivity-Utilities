@@ -1,0 +1,40 @@
+/* .react-pdf__Document {
+  width: 65% !important;
+  overflow: scroll;
+}
+.react-pdf__Document {
+  border: 0.1rem solid black;
+}
+.react-pdf__Page {
+  height: 550px;
+}
+.react-pdf__Page__canvas {
+  width: 100% !important;
+  height: 100% !important;
+} */
+.react-pdf__Document {
+  overflow: auto;
+  height: 500px;
+  width: 500px;
+  display: flex;
+  background: #e6e6e6;
+  flex-direction: column;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: 1px solid gray;
+}
+.react-pdf__Page__textContent {
+  width: fit-content !important;
+}
+
+.react-pdf__Page__canvas {
+  margin: 0 auto;
+  border: 1px solid #010101;
+}
+
+/* For all pages */
+.all-page-container {
+  height: 100%;
+  max-height: 500px;
+  overflow: auto;
+}
