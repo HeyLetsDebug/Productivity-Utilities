@@ -10,7 +10,11 @@ export default function ImageCropper() {
   };
   return (
     <>
-      {/* cropper body section ends here */}
+      <Container id="meta-editor" className="pt-5">
+        <div className="text-center mb-5">
+          <h1>Image Cropper Coming Soon</h1>
+        </div>
+      </Container>
       <Container className="pt-5 pb-5">
         <Row xs={1} md={4} className="g-4">
           <Col>
