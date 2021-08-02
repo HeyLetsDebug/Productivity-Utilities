@@ -12,32 +12,32 @@ export default function PdfMerge() {
   const cursorPointer = {
     cursor: "pointer"
   };
-  // const [disable, setDisable] = useState(true);
-  // const [newPdfFileName, setNewPdfFileName] = useState("");
-  // const [listOfPDF, setListOfPDF] = useState([]);
+  const [disable, setDisable] = useState(true);
+  const [newPdfFileName, setNewPdfFileName] = useState("");
+  const [listOfPDF, setListOfPDF] = useState([]);
 
-  // function handlePDFSelection(e) {
-  //   e.preventDefault();
-  //   const filesToAdd = e.target.files;
-  //   setListOfPDF([...listOfPDF, ...filesToAdd]);
-  // }
-  // useEffect(() => {
-  //   console.log(listOfPDF);
-  // }, [listOfPDF]);
+  function handlePDFSelection(e) {
+    e.preventDefault();
+    const filesToAdd = e.target.files;
+    setListOfPDF([...listOfPDF, ...filesToAdd]);
+  }
+  useEffect(() => {
+    console.log(listOfPDF);
+  }, [listOfPDF]);
 
-  // function readableBytes(bytes) {
-  //   var i = Math.floor(Math.log(bytes) / Math.log(1024)),
-  //     sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+  function readableBytes(bytes) {
+    var i = Math.floor(Math.log(bytes) / Math.log(1024)),
+      sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
-  //   return (bytes / Math.pow(1024, i)).toFixed(2) * 1 + " " + sizes[i];
-  // }
+    return (bytes / Math.pow(1024, i)).toFixed(2) * 1 + " " + sizes[i];
+  }
   return (
     <>
       <Container id="meta-editor" className="pt-5">
         <div className="text-center mb-5">
-          <h1>PDF Merger Coming Soon</h1>
+          <h1>PDF Merger</h1>
         </div>
-        {/* <Row
+        <Row
           id="merger-editor"
           className="d-flex flex-column justify-content-center align-items-center "
         >
@@ -83,7 +83,7 @@ export default function PdfMerge() {
               Merge PDF
             </Button>
           </Col>
-        </Row> */}
+        </Row>
       </Container>
       <Container className="pt-5 pb-5">
         <Row xs={1} md={4} className="g-4">
