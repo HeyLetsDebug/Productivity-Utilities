@@ -1,6 +1,6 @@
 import "../styles/materialStyle.css";
 import "../styles/pdfMetaEdit.css";
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Container, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { PDFDocument } from "pdf-lib";
@@ -145,7 +145,6 @@ export default function PdfMetaEditor() {
                   accept="application/pdf"
                   id="file-here"
                   onChange={handlePDFChange}
-                  placeholder="Paste dam content path here.."
                 />
               </Col>
             </Row>
