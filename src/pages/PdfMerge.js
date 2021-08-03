@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Container, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { PDFDocument } from "pdf-lib";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 // import { Document, Page, pdfjs } from "react-pdf";
 // pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
@@ -15,6 +16,7 @@ export default function PdfMerge() {
   const [disable, setDisable] = useState(true);
   const [newPdfFileName, setNewPdfFileName] = useState("");
   const [listOfPDF, setListOfPDF] = useState([]);
+  const [characters, setCharacters] = useState(listOfPDF);
 
   function handlePDFSelection(e) {
     e.preventDefault();
@@ -22,14 +24,27 @@ export default function PdfMerge() {
     setListOfPDF([...listOfPDF, ...filesToAdd]);
   }
   useEffect(() => {
-    console.log(listOfPDF);
+    setCharacters(listOfPDF);
   }, [listOfPDF]);
+
+  useEffect(() => {
+    setDisable(false);
+  }, [characters]);
 
   function readableBytes(bytes) {
     var i = Math.floor(Math.log(bytes) / Math.log(1024)),
       sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
     return (bytes / Math.pow(1024, i)).toFixed(2) * 1 + " " + sizes[i];
+  }
+  function handleOnDragEnd(result) {
+    if (!result.destination) return;
+    console.log(result);
+    const items = Array.from(characters);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setCharacters(items);
   }
   return (
     <>
@@ -54,16 +69,37 @@ export default function PdfMerge() {
           </Col>
           <Col>
             <div id="pdf-merger-wrapper">
-              <ul id="selectedFiles" className="p-0">
-                {listOfPDF.map((listitem) => (
-                  <li
-                    key={listitem.name}
-                    className="draggable ui-state-default"
-                  >
-                    {listitem.name} {readableBytes(listitem.size)}
-                  </li>
-                ))}
-              </ul>
+              <DragDropContext onDragEnd={handleOnDragEnd}>
+                <Droppable droppableId="characters">
+                  {(provided) => (
+                    <ul
+                      id="selectedFiles"
+                      className="p-0"
+                      {...provided.dropableprops}
+                      ref={provided.innerRef}
+                    >
+                      {characters.map((listitem, index) => (
+                        <Draggable
+                          key={listitem.name}
+                          draggableId={listitem.name}
+                          index={index}
+                        >
+                          {(provided) => (
+                            <li
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              ref={provided.innerRef}
+                            >
+                              {listitem.name} {readableBytes(listitem.size)}
+                            </li>
+                          )}
+                        </Draggable>
+                      ))}
+                      {provided.placeholder}
+                    </ul>
+                  )}
+                </Droppable>
+              </DragDropContext>
             </div>
           </Col>
           <Col>

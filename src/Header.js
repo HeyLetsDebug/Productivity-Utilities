@@ -42,6 +42,9 @@ function PrimaryHeader() {
               <LinkContainer to="/video-poster">
                 <Nav.Link>Video Poster</Nav.Link>
               </LinkContainer>
+              <LinkContainer to="/compare">
+                <Nav.Link>Compare Sites</Nav.Link>
+              </LinkContainer>
             </Nav>
           </Navbar.Collapse>
         </Container>

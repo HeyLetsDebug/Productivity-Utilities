@@ -4,19 +4,15 @@
   border-radius: 5px;
   border: 2px solid #b8b6b6;
 }
-#selectedFiles .draggable {
-  overflow: hidden;
+#selectedFiles li {
   font-weight: 600;
   height: 35px;
   list-style-type: none;
-  border: 1px solid #7f7f7f;
   background-color: white;
   color: #212121;
   line-height: 2.5;
   padding-left: 10px;
   padding-right: 10px;
-  cursor: move;
-  user-select: none;
   margin: 20px auto;
   width: 100%;
 }
