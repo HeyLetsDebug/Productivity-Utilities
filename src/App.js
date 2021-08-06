@@ -1,3 +1,4 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import ImageCropper from "./pages/ImageCropper";
@@ -20,6 +21,27 @@ export default function App() {
       <Route path="/image-cropper" component={ImageCropper}></Route>
       <Route path="/video-poster" component={VideoPoster}></Route>
       <Route path="/compare" component={CompareSites}></Route>
+      {/* <Route exact path="/">
+        <HomePage />
+      </Route>
+      <Route path="/pdf-merger">
+        <PdfMerge />
+      </Route>
+      <Route path="/pdf-meta-editor">
+        <PdfMetaEditor />
+      </Route>
+      <Route path="/image-optimizer">
+        <ImageOptimizer />
+      </Route>
+      <Route path="/image-cropper">
+        <ImageCropper />
+      </Route>
+      <Route path="/video-poster">
+        <VideoPoster />
+      </Route>
+      <Route path="/compare">
+        <CompareSites />
+      </Route> */}
     </Router>
   );
 }
