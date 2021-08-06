@@ -1,18 +1,35 @@
 #pdf-merger-wrapper {
-  padding: 30px 0px;
   background: #e1e1e1;
   border-radius: 5px;
   border: 2px solid #b8b6b6;
 }
-#selectedFiles li {
+#selectedFiles .indFile {
   font-weight: 600;
-  height: 35px;
-  list-style-type: none;
   background-color: white;
-  color: #212121;
-  line-height: 2.5;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin: 20px auto;
-  width: 100%;
+  line-height: 2;
+  width: 20%;
+  word-break: break-all;
+  display: flex;
+  flex-direction: column;
 }
+.indexer {
+  background: #0d6efd;
+  color: white;
+  border-radius: 50px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  float: right;
+}
+/* .fileSizer {
+  position: absolute;
+  bottom: 0;
+} */
+
+.indFile p {
+  flex-grow: 1;
+}
+
+/* #selectedFiles .indFile:not(:first-child) {
+  margin-left: 15px;
+} */

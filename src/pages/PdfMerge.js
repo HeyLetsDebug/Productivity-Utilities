@@ -68,13 +68,13 @@ export default function PdfMerge() {
             />
           </Col>
           <Col>
-            <div id="pdf-merger-wrapper">
+            <div id="pdf-merger-wrapper" className="pt-3 pb-3">
               <DragDropContext onDragEnd={handleOnDragEnd}>
-                <Droppable droppableId="characters">
+                <Droppable droppableId="characters" direction="horizontal">
                   {(provided) => (
-                    <ul
+                    <Row
                       id="selectedFiles"
-                      className="p-0"
+                      className="p-4 m-0"
                       {...provided.dropableprops}
                       ref={provided.innerRef}
                     >
@@ -84,19 +84,29 @@ export default function PdfMerge() {
                           draggableId={listitem.name}
                           index={index}
                         >
-                          {(provided) => (
-                            <li
+                          {(provided, snapshot) => (
+                            <Col
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
                               ref={provided.innerRef}
+                              className="indFile p-2 mb-3 rounded-3"
+                              xl="4"
+                              lg="4"
+                              md="3"
+                              sm="12"
+                              xs="12"
                             >
-                              {listitem.name} {readableBytes(listitem.size)}
-                            </li>
+                              <p>{listitem.name}</p>
+                              <span className="fileSizer">
+                                File Size: {readableBytes(listitem.size)}
+                                <span className="indexer">{index}</span>
+                              </span>
+                            </Col>
                           )}
                         </Draggable>
                       ))}
                       {provided.placeholder}
-                    </ul>
+                    </Row>
                   )}
                 </Droppable>
               </DragDropContext>
