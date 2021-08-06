@@ -10,7 +10,8 @@ function PrimaryHeader() {
     maxHeight: "60px"
   };
   function handleClick(e) {
-    history.push(e.target.href);
+    console.log(e.target.getAttribute("href"));
+    // history.push(e.target.getAttribute("href"));
   }
   return (
     <>
