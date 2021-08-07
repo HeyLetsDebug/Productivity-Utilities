@@ -6,6 +6,7 @@ import { Row, Col, Card, Container, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { PDFDocument } from "pdf-lib";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { AiOutlineDelete } from "react-icons/ai";
 // import { Document, Page, pdfjs } from "react-pdf";
 // pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
@@ -44,6 +45,16 @@ export default function PdfMerge() {
     setCharacters(items);
   }
 
+  function handleDeleteElement(e) {
+    const deleteindex = e.target.getAttribute("data-delete");
+    const items = Array.from(characters);
+    if (deleteindex > -1) {
+      items.splice(deleteindex, 1);
+      setCharacters(items);
+    }
+    // console.log(deleteindex);
+  }
+
   // handling enter key in input field
   function handleKeyPress(e) {
     if (e.charCode === 13) {
@@ -54,7 +65,6 @@ export default function PdfMerge() {
       }
     }
   }
-
   function handlemergePdfs() {
     const listofFiles = [];
     const els = document.getElementsByClassName("indFile");
@@ -73,6 +83,7 @@ export default function PdfMerge() {
   useEffect(() => {
     if (characters.length !== 0) {
       setDisable(false);
+      console.log(characters);
     }
   }, [characters]);
 
@@ -171,10 +182,18 @@ export default function PdfMerge() {
                               xs="12"
                               data-blober={URL.createObjectURL(listitem)}
                             >
-                              <p>{listitem.name}</p>
+                              <p>
+                                <span>{index + 1}.</span> {listitem.name}
+                              </p>
                               <span className="fileSizer">
                                 File Size: {readableBytes(listitem.size)}
-                                <span className="indexer">{index + 1}</span>
+                              </span>
+                              <span
+                                className="pdfDeleter"
+                                data-delete={index}
+                                onClick={handleDeleteElement}
+                              >
+                                Delete <AiOutlineDelete data-delete={index} />
                               </span>
                             </Col>
                           )}
