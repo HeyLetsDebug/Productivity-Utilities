@@ -3,7 +3,7 @@
   border: 0;
   transition: 0.2s ease-out;
   color: #fff;
-  margin: 6px;
+  margin: 6px 0px 6px 0px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 

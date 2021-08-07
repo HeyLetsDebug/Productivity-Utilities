@@ -2,6 +2,7 @@
   background: #e1e1e1;
   border-radius: 5px;
   border: 2px solid #b8b6b6;
+  overflow: auto;
 }
 #selectedFiles .indFile {
   font-weight: 600;
