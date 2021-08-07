@@ -65,18 +65,21 @@ export default function PdfMerge() {
   }
 
   useEffect(() => {
-    setCharacters(listOfPDF);
-    console.log("listOfPDF : " + listOfPDF);
+    if (listOfPDF.length !== 0) {
+      setCharacters(listOfPDF);
+    }
   }, [listOfPDF]);
 
   useEffect(() => {
-    setDisable(false);
-    console.log("characters : " + characters);
+    if (characters.length !== 0) {
+      setDisable(false);
+    }
   }, [characters]);
-  useEffect(() => {
-    mergePdfs(filesToMerge);
 
-    console.log("filesToMerge : " + filesToMerge);
+  useEffect(() => {
+    if (filesToMerge.length !== 0) {
+      mergePdfs(filesToMerge);
+    }
   }, [filesToMerge]);
 
   async function mergePdfs(pdfsToMerge) {
