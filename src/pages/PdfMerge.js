@@ -15,6 +15,7 @@ export default function PdfMerge() {
     cursor: "pointer"
   };
   const mergerButton = useRef(null);
+  const fileInput = useRef();
   const [disable, setDisable] = useState(true);
   const [newPdfFileName, setNewPdfFileName] = useState("");
   const [listOfPDF, setListOfPDF] = useState([]);
@@ -52,7 +53,6 @@ export default function PdfMerge() {
       items.splice(deleteindex, 1);
       setCharacters(items);
     }
-    // console.log(deleteindex);
   }
 
   // handling enter key in input field
@@ -81,9 +81,10 @@ export default function PdfMerge() {
   }, [listOfPDF]);
 
   useEffect(() => {
-    if (characters.length !== 0) {
+    if (characters.length === 0) {
+      fileInput.current.value = "";
+    } else {
       setDisable(false);
-      console.log(characters);
     }
   }, [characters]);
 
@@ -149,14 +150,15 @@ export default function PdfMerge() {
               id="files"
               name="files"
               multiple
+              ref={fileInput}
               onChange={handlePDFSelection}
             />
           </Col>
           <Col>
-            <div id="pdf-merger-wrapper" className="pt-3 pb-3">
-              <DragDropContext onDragEnd={handleOnDragEnd}>
-                <Droppable droppableId="characters" direction="horizontal">
-                  {(provided) => (
+            <DragDropContext onDragEnd={handleOnDragEnd}>
+              <Droppable droppableId="characters" direction="horizontal">
+                {(provided) => (
+                  <div id="pdf-merger-wrapper" className="pt-3 pb-3">
                     <Row
                       id="selectedFiles"
                       className="p-4 m-0"
@@ -175,8 +177,8 @@ export default function PdfMerge() {
                               {...provided.dragHandleProps}
                               ref={provided.innerRef}
                               className="indFile p-2 mb-3 rounded-3"
-                              xl="4"
-                              lg="4"
+                              xl="3"
+                              lg="3"
                               md="3"
                               sm="12"
                               xs="12"
@@ -201,10 +203,10 @@ export default function PdfMerge() {
                       ))}
                       {provided.placeholder}
                     </Row>
-                  )}
-                </Droppable>
-              </DragDropContext>
-            </div>
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
           </Col>
           <Col>
             <input

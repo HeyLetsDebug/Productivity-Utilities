@@ -2,13 +2,12 @@
   background: #e1e1e1;
   border-radius: 5px;
   border: 2px solid #b8b6b6;
-  overflow: auto;
+  /* overflow: auto; */
 }
 #selectedFiles .indFile {
   font-weight: 600;
   background-color: white;
   line-height: 2;
-  width: 20%;
   word-break: break-all;
   display: flex;
   flex-direction: column;
