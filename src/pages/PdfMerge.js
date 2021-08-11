@@ -208,8 +208,9 @@ export default function PdfMerge() {
               </Droppable>
             </DragDropContext>
           </Col>
-          <Col>
+          <Col className="mt-3 mb-2">
             <input
+              className="w-100"
               disabled={disable}
               type="text"
               value={newPdfFileName}
