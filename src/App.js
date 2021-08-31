@@ -11,17 +11,36 @@ import PrimaryHeader from "./Header.js";
 import HomePage from "./pages/HomePage";
 
 export default function App() {
+  const injectGA = () => {
+    if (typeof window == "undefined") {
+      return;
+    }
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      window.dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-DE002BFYYY");
+  };
   return (
-    <Router>
-      <PrimaryHeader></PrimaryHeader>
-      <Route exact path="/" component={HomePage}></Route>
-      <Route path="/pdf-merger" component={PdfMerge}></Route>
-      <Route path="/pdf-meta-editor" component={PdfMetaEditor}></Route>
-      <Route path="/image-optimizer" component={ImageOptimizer}></Route>
-      <Route path="/image-cropper" component={ImageCropper}></Route>
-      <Route path="/video-poster" component={VideoPoster}></Route>
-      <Route path="/compare" component={CompareSites}></Route>
-    </Router>
+    <>
+      <Router>
+        <PrimaryHeader></PrimaryHeader>
+        <Route exact path="/" component={HomePage}></Route>
+        <Route path="/pdf-merger" component={PdfMerge}></Route>
+        <Route path="/pdf-meta-editor" component={PdfMetaEditor}></Route>
+        <Route path="/image-optimizer" component={ImageOptimizer}></Route>
+        <Route path="/image-cropper" component={ImageCropper}></Route>
+        <Route path="/video-poster" component={VideoPoster}></Route>
+        <Route path="/compare" component={CompareSites}></Route>
+      </Router>
+      <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-DE002BFYYY"
+      />
+      <script>{injectGA()}</script>
+    </>
   );
 }
 
