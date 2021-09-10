@@ -11,18 +11,6 @@ import PrimaryHeader from "./Header.js";
 import HomePage from "./pages/HomePage";
 
 export default function App() {
-  const injectGA = () => {
-    if (typeof window == "undefined") {
-      return;
-    }
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      window.dataLayer.push(arguments);
-    }
-    gtag("js", new Date());
-
-    gtag("config", "G-DE002BFYYY");
-  };
   return (
     <>
       <Router>
@@ -35,11 +23,6 @@ export default function App() {
         <Route path="/video-poster" component={VideoPoster}></Route>
         <Route path="/compare" component={CompareSites}></Route>
       </Router>
-      <script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-DE002BFYYY"
-      />
-      <script>{injectGA()}</script>
     </>
   );
 }

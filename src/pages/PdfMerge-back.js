@@ -83,7 +83,6 @@ export default function PdfMerge() {
   useEffect(() => {
     if (characters.length === 0) {
       fileInput.current.value = "";
-      setListOfPDF([]);
     } else {
       setDisable(false);
     }
@@ -133,24 +132,6 @@ export default function PdfMerge() {
     }
   }
 
-  const getItemStyle = (isDragging, draggableStyle) => ({
-    // some basic styles to make the items look a bit nicer
-    userSelect: "none",
-    margin: `0 8px 0 0`,
-
-    // change background colour if dragging
-    background: isDragging ? "#ffeb3b" : "#f6f6f8",
-
-    // styles we need to apply on draggables
-    ...draggableStyle
-  });
-
-  const getListStyle = (isDraggingOver, itemsLength) => ({
-    background: isDraggingOver ? "lightblue" : "#f3f0ec",
-    display: "flex",
-    padding: "30px",
-    width: itemsLength * 198.44 + 16
-  });
   return (
     <>
       <Container id="meta-editor" className="pt-5">
@@ -173,67 +154,60 @@ export default function PdfMerge() {
               onChange={handlePDFSelection}
             />
           </Col>
-        </Row>
-        <div id="pdf-merger-wrapper" style={{ overflowX: "scroll" }}>
-          <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable
-              droppableId="characters"
-              direction="horizontal"
-              justifyContent="center"
-              alignContent="center"
-            >
-              {(provided, snapshot) => (
-                <div
-                  id="selectedFiles"
-                  ref={provided.innerRef}
-                  {...provided.dropableprops}
-                  style={getListStyle(
-                    snapshot.isDraggingOver,
-                    characters.length
-                  )}
-                >
-                  {characters.map((listitem, index) => (
-                    <Draggable
-                      key={listitem.name}
-                      draggableId={listitem.name}
-                      index={index}
+          <Col>
+            <DragDropContext onDragEnd={handleOnDragEnd}>
+              <Droppable droppableId="characters" direction="horizontal">
+                {(provided) => (
+                  <div id="pdf-merger-wrapper" className="pt-3 pb-3">
+                    <Row
+                      id="selectedFiles"
+                      className="p-4 m-0"
+                      {...provided.dropableprops}
+                      ref={provided.innerRef}
                     >
-                      {(provided, snapshot) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          className="indFile p-2 mb-3 rounded-3"
-                          data-blober={URL.createObjectURL(listitem)}
-                          style={getItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                          )}
+                      {characters.map((listitem, index) => (
+                        <Draggable
+                          key={listitem.name}
+                          draggableId={listitem.name}
+                          index={index}
                         >
-                          <p>
-                            <span>{index + 1}.</span> {listitem.name}
-                          </p>
-                          <span className="fileSizer">
-                            File Size: {readableBytes(listitem.size)}
-                          </span>
-                          <span
-                            className="pdfDeleter"
-                            data-delete={index}
-                            onClick={handleDeleteElement}
-                          >
-                            Delete <AiOutlineDelete data-delete={index} />
-                          </span>
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
-        </div>
-        <Row className="d-flex flex-column justify-content-center align-items-center">
+                          {(provided, snapshot) => (
+                            <Col
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              ref={provided.innerRef}
+                              className="indFile p-2 mb-3 rounded-3"
+                              xl="3"
+                              lg="3"
+                              md="3"
+                              sm="12"
+                              xs="12"
+                              data-blober={URL.createObjectURL(listitem)}
+                            >
+                              <p>
+                                <span>{index + 1}.</span> {listitem.name}
+                              </p>
+                              <span className="fileSizer">
+                                File Size: {readableBytes(listitem.size)}
+                              </span>
+                              <span
+                                className="pdfDeleter"
+                                data-delete={index}
+                                onClick={handleDeleteElement}
+                              >
+                                Delete <AiOutlineDelete data-delete={index} />
+                              </span>
+                            </Col>
+                          )}
+                        </Draggable>
+                      ))}
+                      {provided.placeholder}
+                    </Row>
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+          </Col>
           <Col className="mt-3 mb-2">
             <input
               className="w-100"
@@ -257,7 +231,6 @@ export default function PdfMerge() {
             >
               Merge PDF
             </Button>
-            <p id="fileInput"></p>
           </Col>
         </Row>
       </Container>
