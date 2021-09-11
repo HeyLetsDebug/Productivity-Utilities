@@ -1,30 +1,45 @@
 #pdf-merger-wrapper {
-  background: #e1e1e1;
   border-radius: 5px;
   border: 2px solid #b8b6b6;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -ms-flex: 1 1 0%;
+  flex: 1 1 0%;
+  background-color: #f3f0ec;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
   /* overflow: auto; */
 }
-#selectedFiles .indFile {
-  font-weight: 600;
-  background-color: white;
-  line-height: 2;
-  word-break: break-all;
+.isa_warning {
+  color: #9f6000;
+  background-color: #feefb3;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
 }
-/* .indexer {
-  background: #0d6efd;
-  color: white;
-  border-radius: 50px;
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  float: right;
-} */
-/* .fileSizer {
-  position: absolute;
-  bottom: 0;
-} */
+.isa_warning span {
+  padding-left: 5px;
+}
+#selectedFiles .indFile {
+  margin: 4px;
+  width: 190px;
+  min-height: 150px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-line-pack: distribute;
+  align-content: space-around;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0);
+  -webkit-box-shadow: 0 0 4px 0 rgb(0 0 0 / 20%);
+  box-shadow: 0 0 4px 0 rgb(0 0 0 / 20%);
+}
 .pdfDeleter {
   background-color: #ca1e1e;
   color: white;
@@ -33,6 +48,8 @@
   border-radius: 3px;
   margin-top: 10px;
   transition: 0.2s ease-in;
+  font-size: 12px;
+  width: 100%;
 }
 .pdfDeleter:hover {
   box-shadow: 2px 2px 4px 0px #00000075;
@@ -42,14 +59,15 @@
 }
 .indFile p {
   flex-grow: 1;
-  line-height: 1.2rem;
+  font-size: 12px;
+  line-height: 16px;
 }
 .indFile p span {
   color: #ca1e1e;
   font-weight: bold;
 }
 .fileSizer {
-  font-size: 0.9rem;
+  font-size: 12px;
 }
 /* #selectedFiles .indFile:not(:first-child) {
   margin-left: 15px;

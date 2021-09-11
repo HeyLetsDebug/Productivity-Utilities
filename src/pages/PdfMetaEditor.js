@@ -255,7 +255,7 @@ export default function PdfMetaEditor() {
               </Card.Body>
             </Card>
           </Col>
-          <Col>
+          {/* <Col>
             <Card>
               <Card.Body>
                 <LinkContainer to="/image-cropper" style={cursorPointer}>
@@ -271,7 +271,7 @@ export default function PdfMetaEditor() {
                 </LinkContainer>
               </Card.Body>
             </Card>
-          </Col>
+          </Col> */}
           <Col>
             <Card>
               <Card.Body>

@@ -55,7 +55,7 @@ export default function HomePage() {
               </Card>
             </LinkContainer>
           </Col>
-          <Col>
+          {/* <Col>
             <LinkContainer to="/image-cropper" style={cursorPointer}>
               <Card>
                 <Card.Body>
@@ -69,7 +69,7 @@ export default function HomePage() {
                 </Card.Body>
               </Card>
             </LinkContainer>
-          </Col>
+          </Col> */}
           <Col>
             <LinkContainer to="/video-poster" style={cursorPointer}>
               <Card>

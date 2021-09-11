@@ -7,6 +7,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { PDFDocument } from "pdf-lib";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineFrown } from "react-icons/ai";
 // import { Document, Page, pdfjs } from "react-pdf";
 // pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
@@ -17,8 +18,8 @@ export default function PdfMerge() {
   const mergerButton = useRef(null);
   const fileInput = useRef();
   const [disable, setDisable] = useState(true);
+  const [warningText, setWarningText] = useState("");
   const [newPdfFileName, setNewPdfFileName] = useState("");
-  const [listOfPDF, setListOfPDF] = useState([]);
   const [characters, setCharacters] = useState([]);
   const [filesToMerge, setFilesToMerge] = useState([]);
 
@@ -26,8 +27,22 @@ export default function PdfMerge() {
   function handlePDFSelection(e) {
     e.preventDefault();
     const filesToAdd = e.target.files;
-    setListOfPDF([...listOfPDF, ...filesToAdd]);
+    setCharacters([...characters, ...filesToAdd]);
+    fileInput.current.value = "";
   }
+
+  useEffect(() => {
+    if (characters.length === 0) {
+      setFilesToMerge([]);
+      setWarningText("");
+    } else if (characters.length === 1) {
+      setDisable(true);
+      setWarningText("You need more than '1' PDF for merging !!");
+    } else {
+      setDisable(false);
+      setWarningText("");
+    }
+  }, [characters]);
 
   // converting file sizes in to readable format
   function readableBytes(bytes) {
@@ -71,23 +86,8 @@ export default function PdfMerge() {
     for (var i = 0; i < els.length; i++) {
       listofFiles.push(els[i].getAttribute("data-blober"));
     }
-    setFilesToMerge([...filesToMerge, ...listofFiles]);
+    setFilesToMerge(listofFiles);
   }
-
-  useEffect(() => {
-    if (listOfPDF.length !== 0) {
-      setCharacters(listOfPDF);
-    }
-  }, [listOfPDF]);
-
-  useEffect(() => {
-    if (characters.length === 0) {
-      fileInput.current.value = "";
-      setListOfPDF([]);
-    } else {
-      setDisable(false);
-    }
-  }, [characters]);
 
   useEffect(() => {
     if (filesToMerge.length !== 0) {
@@ -134,20 +134,15 @@ export default function PdfMerge() {
   }
 
   const getItemStyle = (isDragging, draggableStyle) => ({
-    // some basic styles to make the items look a bit nicer
     userSelect: "none",
     margin: `0 8px 0 0`,
-
-    // change background colour if dragging
     background: isDragging ? "#ffeb3b" : "#f6f6f8",
-
-    // styles we need to apply on draggables
     ...draggableStyle
   });
 
   const getListStyle = (isDraggingOver, itemsLength) => ({
     background: isDraggingOver ? "lightblue" : "#f3f0ec",
-    display: "flex",
+    display: itemsLength === 0 ? "none" : "flex",
     padding: "30px",
     width: itemsLength * 198.44 + 16
   });
@@ -174,7 +169,13 @@ export default function PdfMerge() {
             />
           </Col>
         </Row>
-        <div id="pdf-merger-wrapper" style={{ overflowX: "scroll" }}>
+        <div
+          id="pdf-merger-wrapper"
+          style={{
+            overflowX: "scroll",
+            display: characters.length === 0 ? "none" : "block"
+          }}
+        >
           <DragDropContext onDragEnd={handleOnDragEnd}>
             <Droppable
               droppableId="characters"
@@ -194,8 +195,8 @@ export default function PdfMerge() {
                 >
                   {characters.map((listitem, index) => (
                     <Draggable
-                      key={listitem.name}
-                      draggableId={listitem.name}
+                      key={listitem.name + index}
+                      draggableId={listitem.name + index}
                       index={index}
                     >
                       {(provided, snapshot) => (
@@ -257,7 +258,15 @@ export default function PdfMerge() {
             >
               Merge PDF
             </Button>
-            <p id="fileInput"></p>
+          </Col>
+          <Col
+            id="warningBoxWrapper"
+            style={{ display: warningText.length === 0 ? "none" : "block" }}
+          >
+            <p className="isa_warning">
+              <AiOutlineFrown />
+              <span>{warningText}</span>
+            </p>
           </Col>
         </Row>
       </Container>
@@ -297,7 +306,7 @@ export default function PdfMerge() {
               </Card.Body>
             </Card>
           </Col>
-          <Col>
+          {/* <Col>
             <Card>
               <Card.Body>
                 <LinkContainer to="/image-cropper" style={cursorPointer}>
@@ -313,7 +322,7 @@ export default function PdfMerge() {
                 </LinkContainer>
               </Card.Body>
             </Card>
-          </Col>
+          </Col> */}
           <Col>
             <Card>
               <Card.Body>

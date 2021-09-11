@@ -43,14 +43,11 @@ function PrimaryHeader() {
               <LinkContainer to="/image-optimizer" onClick={handleClick}>
                 <Nav.Link>Image Optimizer</Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/image-cropper" onClick={handleClick}>
+              {/* <LinkContainer to="/image-cropper" onClick={handleClick}>
                 <Nav.Link>Image Cropper</Nav.Link>
-              </LinkContainer>
+              </LinkContainer> */}
               <LinkContainer to="/video-poster" onClick={handleClick}>
                 <Nav.Link>Video Poster</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/compare" onClick={handleClick}>
-                <Nav.Link>Compare Sites</Nav.Link>
               </LinkContainer>
             </Nav>
           </Navbar.Collapse>

@@ -226,7 +226,7 @@ export default function VideoPoster() {
               </Card.Body>
             </Card>
           </Col>
-          <Col>
+          {/* <Col>
             <Card>
               <Card.Body>
                 <LinkContainer to="/image-cropper" style={cursorPointer}>
@@ -242,7 +242,7 @@ export default function VideoPoster() {
                 </LinkContainer>
               </Card.Body>
             </Card>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     </>

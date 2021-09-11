@@ -194,7 +194,7 @@ export default function ImageOptimizer() {
               </Card.Body>
             </Card>
           </Col>
-          <Col>
+          {/* <Col>
             <Card>
               <Card.Body>
                 <LinkContainer to="/image-cropper" style={cursorPointer}>
@@ -210,7 +210,7 @@ export default function ImageOptimizer() {
                 </LinkContainer>
               </Card.Body>
             </Card>
-          </Col>
+          </Col> */}
           <Col>
             <Card>
               <Card.Body>
