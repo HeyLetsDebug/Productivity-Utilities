@@ -1,0 +1,16 @@
+.headerShadow {
+  -webkit-box-shadow: 0 3px 6px 0 rgb(50 50 50 / 30%);
+  box-shadow: 0 3px 6px 0 rgb(50 50 50 / 30%);
+  background: white;
+}
+.headerShadow.navbar .headerLinksMain {
+  color: #161616;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 0 20px;
+}
+
+.headerShadow.navbar .navbar-nav .nav-link.active {
+  color: red;
+}

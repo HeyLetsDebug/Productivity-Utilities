@@ -103,7 +103,9 @@ export default function PdfMerge() {
         const existingPdfBytes = await fetch(pdfCopyDoc).then((res) =>
           res.arrayBuffer()
         );
-        const pdfDoc = await PDFDocument.load(existingPdfBytes);
+        const pdfDoc = await PDFDocument.load(existingPdfBytes, {
+          ignoreEncryption: true
+        });
         const copiedPages = await mergedPdf.copyPages(
           pdfDoc,
           pdfDoc.getPageIndices()
@@ -152,10 +154,7 @@ export default function PdfMerge() {
         <div className="text-center mb-5">
           <h1>PDF Merger</h1>
         </div>
-        <Row
-          id="merger-editor"
-          className="d-flex flex-column justify-content-center align-items-center"
-        >
+        <Row className="d-flex flex-column justify-content-center align-items-center">
           <Col>
             <input
               className="btn btn-dark w-100"

@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/homeStyles.css";
 import { Row, Col, Card, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
@@ -8,6 +9,22 @@ export default function HomePage() {
   };
   return (
     <>
+      <section className="jumbosTitle pt-5 pb-5">
+        <Container>
+          <Row>
+            <Col>
+              <h1 className="mainTitle pb-2">
+                Every tool you need at your fingertips.
+              </h1>
+              <h5 className="subsTitle pb-2">
+                All are 100% FREE and easy to use! Merge, split, compress,
+                convert, rotate, unlock and watermark PDFs with just a few
+                clicks.
+              </h5>
+            </Col>
+          </Row>
+        </Container>
+      </section>
       <Container className="pt-5 pb-5">
         <Row xs={1} md={3} className="g-4">
           <Col>

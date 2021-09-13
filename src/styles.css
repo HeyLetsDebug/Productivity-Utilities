@@ -1,4 +1,9 @@
-.App {
-  font-family: sans-serif;
-  text-align: center;
+.card {
+  -webkit-box-shadow: 0 2px 10px 0 rgb(0 0 0 / 10%);
+  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 10%);
+}
+.card .card-link {
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: uppercase;
 }

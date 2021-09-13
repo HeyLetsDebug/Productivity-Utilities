@@ -1,0 +1,24 @@
+.jumbosTitle {
+  position: relative;
+  text-align: center;
+  background: -o-linear-gradient(left, #009688 0, #164468 50%, #776998 100%)
+    #2d1859;
+  background: linear-gradient(90deg, #009688, #164468 50%, #776998) #2d1859;
+}
+
+.jumbosTitle .mainTitle {
+  text-align: center;
+  color: #fff;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+
+.jumbosTitle .subsTitle {
+  text-align: center;
+  color: #fff;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+.headerShadow .navbar-brand .brandLogowct {
+  max-height: 50px !important;
+}

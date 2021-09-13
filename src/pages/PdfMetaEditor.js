@@ -1,11 +1,11 @@
 import "../styles/materialStyle.css";
 import "../styles/pdfMetaEdit.css";
+import dummyPDF from "../img/dummy-pdf-placeholder.pdf";
 import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Container, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { PDFDocument } from "pdf-lib";
 import { Document, Page, pdfjs } from "react-pdf";
-import dummyPDF from "../img/dummy-pdf-placeholder.pdf";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 export default function PdfMetaEditor() {
