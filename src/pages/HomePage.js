@@ -17,9 +17,7 @@ export default function HomePage() {
                 Every tool you need at your fingertips.
               </h1>
               <h5 className="subsTitle pb-2">
-                All are 100% FREE and easy to use! Merge, split, compress,
-                convert, rotate, unlock and watermark PDFs with just a few
-                clicks.
+                One stop shop for all your production build needs !!
               </h5>
             </Col>
           </Row>

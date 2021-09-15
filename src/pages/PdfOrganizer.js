@@ -21,7 +21,7 @@ export default function PdfOrganize() {
   const [disable, setDisable] = useState(true);
   const [warningText, setWarningText] = useState("");
   const [newPdfFileName, setNewPdfFileName] = useState("");
-  const [characters, setCharacters] = useState([]);
+  const [allFiles, setAllFiles] = useState([]);
   const [filesToMerge, setFilesToMerge] = useState([]);
 
   // show PDF function
@@ -34,39 +34,32 @@ export default function PdfOrganize() {
       pdfjs.getDocument({ url: someblobber }).promise.then(function (pdf) {
         //console.log(pdf);
         thePdf = pdf;
-        const viewer = document.getElementById("show-pdf-page-wrapper");
+        //const viewer = document.getElementById("show-pdf-page-wrapper");
+
+        const listofPDFFiles = [];
+
         for (var page = 1; page <= pdf.numPages; page++) {
-          // var canvas = document.createElement("canvas");
-          // canvas.className = "pdf-page-canvas";
-          // viewer.appendChild(canvas);
-          // renderPage(page, canvas);
-          var li = document.createElement("div");
-          viewer.appendChild(li);
-          //var last = reArrangedPDF;
-          li.setAttribute("class", "pdfWrapper");
-          var canvas = document.createElement("canvas");
-          canvas.className = "pdf-page-canvas";
-          canvas.style.width = "90%";
-          canvas.width = canvas.offsetWidth;
-          li.appendChild(canvas);
-          renderPage(page, canvas);
-          var deleteText = document.createElement("p");
-          deleteText.setAttribute("class", "delete-page fa fa-trash");
-          li.appendChild(deleteText);
+          listofPDFFiles.push(page[page].getAttribute("data-blober"));
         }
+        setAllFiles(listofPDFFiles);
+
+        // for (var page = 1; page <= pdf.numPages; page++) {
+        //   var li = document.createElement("div");
+        //   viewer.appendChild(li);
+        //   //var last = reArrangedPDF;
+        //   li.setAttribute("class", "pdfWrapper");
+        //   var canvas = document.createElement("canvas");
+        //   canvas.className = "pdf-page-canvas";
+        //   canvas.style.width = "90%";
+        //   canvas.width = canvas.offsetWidth;
+        //   li.appendChild(canvas);
+        //   renderPage(page, canvas);
+        //   var deleteText = document.createElement("p");
+        //   deleteText.setAttribute("class", "delete-page fa fa-trash");
+        //   li.appendChild(deleteText);
+        // }
         // pagenumbererr();
       });
-      // const existingPdfBytes = await fetch(pdfCopyDoc).then((res) =>
-      //   res.arrayBuffer()
-      // );
-      // const pdfDoc = await PDFDocument.load(existingPdfBytes);
-      // const copiedPages = await mergedPdf.copyPages(
-      //   pdfDoc,
-      //   pdfDoc.getPageIndices()
-      // );
-      // copiedPages.forEach((page) => {
-      //   mergedPdf.addPage(page);
-      // });
     }
   }
 
@@ -86,47 +79,47 @@ export default function PdfOrganize() {
   function handlePDFSelection(e) {
     e.preventDefault();
     const filesToAdd = e.target.files;
-    setCharacters([...characters, ...filesToAdd]);
+    setAllFiles([...allFiles, ...filesToAdd]);
     fileInput.current.value = "";
   }
 
   useEffect(() => {
-    if (characters.length === 0) {
+    if (allFiles.length === 0) {
       setFilesToMerge([]);
       setWarningText("");
-    } else if (characters.length === 1) {
+    } else if (allFiles.length === 1) {
       setDisable(true);
       setWarningText("You need more than '1' PDF for merging !!");
-      showPDF(characters);
+      showPDF(allFiles);
     } else {
       setDisable(false);
       setWarningText("");
     }
-  }, [characters]);
+  }, [allFiles]);
 
   // converting file sizes in to readable format
-  function readableBytes(bytes) {
-    var i = Math.floor(Math.log(bytes) / Math.log(1024)),
-      sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+  // function readableBytes(bytes) {
+  //   var i = Math.floor(Math.log(bytes) / Math.log(1024)),
+  //     sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
-    return (bytes / Math.pow(1024, i)).toFixed(2) * 1 + " " + sizes[i];
-  }
+  //   return (bytes / Math.pow(1024, i)).toFixed(2) * 1 + " " + sizes[i];
+  // }
 
   // handling on drag end event
   function handleOnDragEnd(result) {
     if (!result.destination) return;
-    const items = Array.from(characters);
+    const items = Array.from(allFiles);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-    setCharacters(items);
+    setAllFiles(items);
   }
 
   function handleDeleteElement(e) {
     const deleteindex = e.target.getAttribute("data-delete");
-    const items = Array.from(characters);
+    const items = Array.from(allFiles);
     if (deleteindex > -1) {
       items.splice(deleteindex, 1);
-      setCharacters(items);
+      setAllFiles(items);
     }
   }
 
@@ -172,12 +165,6 @@ export default function PdfOrganize() {
           mergedPdf.addPage(page);
         });
       }
-
-      // if (save_pdf_name.value == "") {
-      //   name_of_pdf = "mergedFile";
-      // } else {
-      //   name_of_pdf = save_pdf_name.value;
-      // }
 
       mergedPdf.setProducer("");
       mergedPdf.setCreator("");
@@ -226,31 +213,20 @@ export default function PdfOrganize() {
             />
           </Col>
         </Row>
-        <div
-          id="pdf-merger-wrapper"
-          style={{
-            overflowX: "scroll",
-            display: characters.length === 0 ? "none" : "block"
-          }}
-        >
-          <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable
-              droppableId="characters"
-              direction="horizontal"
-              justifyContent="center"
-              alignContent="center"
-            >
-              {(provided, snapshot) => (
-                <div
-                  id="selectedFiles"
-                  ref={provided.innerRef}
-                  {...provided.dropableprops}
-                  style={getListStyle(
-                    snapshot.isDraggingOver,
-                    characters.length
-                  )}
-                >
-                  {characters.map((listitem, index) => (
+        <Col>
+          {/* <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="pagesOfPDF" direction="horizontal">
+              {(provided, snapshot) => ( */}
+          <div
+            id="show-pdf-page-wrapper"
+            // ref={provided.innerRef}
+            // {...provided.dropableprops}
+            // style={getListStyle(
+            //   snapshot.isDraggingOver,
+            //   characters.length
+            // )}
+          >
+            {/* {characters.map((listitem, index) => (
                     <Draggable
                       key={listitem.name + index}
                       draggableId={listitem.name + index}
@@ -271,9 +247,6 @@ export default function PdfOrganize() {
                           <p>
                             <span>{index + 1}.</span> {listitem.name}
                           </p>
-                          <span className="fileSizer">
-                            File Size: {readableBytes(listitem.size)}
-                          </span>
                           <span
                             className="pdfDeleter"
                             data-delete={index}
@@ -285,12 +258,12 @@ export default function PdfOrganize() {
                       )}
                     </Draggable>
                   ))}
-                  {provided.placeholder}
-                </div>
-              )}
+                  {provided.placeholder} */}
+          </div>
+          {/* )}
             </Droppable>
-          </DragDropContext>
-        </div>
+          </DragDropContext> */}
+        </Col>
         <Row className="d-flex flex-column justify-content-center align-items-center">
           <Col className="mt-3 mb-2">
             <input
@@ -325,7 +298,6 @@ export default function PdfOrganize() {
               <span>{warningText}</span>
             </p>
           </Col>
-          <Col id="show-pdf-page-wrapper"></Col>
         </Row>
       </Container>
       <Container className="pt-5 pb-5">

@@ -150,10 +150,19 @@ export default function PdfMerge() {
   });
   return (
     <>
+      <section className="jumbosTitle pt-5 pb-5">
+        <Container>
+          <Row>
+            <Col>
+              <h1 className="mainTitle pb-2">PDF Merger</h1>
+            </Col>
+          </Row>
+        </Container>
+      </section>
       <Container id="meta-editor" className="pt-5">
-        <div className="text-center mb-5">
+        {/* <div className="text-center mb-5">
           <h1>PDF Merger</h1>
-        </div>
+        </div> */}
         <Row className="d-flex flex-column justify-content-center align-items-center">
           <Col>
             <input

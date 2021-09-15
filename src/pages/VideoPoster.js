@@ -88,10 +88,19 @@ export default function VideoPoster() {
 
   return (
     <>
+      <section className="jumbosTitle pt-5 pb-5">
+        <Container>
+          <Row>
+            <Col>
+              <h1 className="mainTitle pb-2">Video Poster Creator</h1>
+            </Col>
+          </Row>
+        </Container>
+      </section>
       <Container className="pt-5">
-        <div className="text-center mb-5">
+        {/* <div className="text-center mb-5">
           <h1>Video Poster Creator</h1>
-        </div>
+        </div> */}
         <Row className="d-flex justify-content-around">
           <Col xs md="10" lg="8">
             <Row id="topbar">

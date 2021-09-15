@@ -122,10 +122,19 @@ export default function PdfMetaEditor() {
 
   return (
     <>
+      <section className="jumbosTitle pt-5 pb-5">
+        <Container>
+          <Row>
+            <Col>
+              <h1 className="mainTitle pb-2">PDF Meta Data Editor</h1>
+            </Col>
+          </Row>
+        </Container>
+      </section>
       <Container id="meta-editor" className="pt-5">
-        <div className="text-center mb-5">
+        {/* <div className="text-center mb-5">
           <h1>PDF Meta Data Editor</h1>
-        </div>
+        </div> */}
         <Row>
           <Col className="d-flex justify-content-center" xl="5" lg="5" md="5">
             <Document file={pdfObjectUrl} onLoadSuccess={onDocumentLoadSuccess}>

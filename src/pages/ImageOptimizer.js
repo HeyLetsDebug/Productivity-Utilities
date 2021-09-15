@@ -62,10 +62,19 @@ export default function ImageOptimizer() {
 
   return (
     <>
+      <section className="jumbosTitle pt-5 pb-5">
+        <Container>
+          <Row>
+            <Col>
+              <h1 className="mainTitle pb-2">Image Compressor</h1>
+            </Col>
+          </Row>
+        </Container>
+      </section>
       <Container className="pt-5">
-        <div className="text-center mb-5">
+        {/* <div className="text-center mb-5">
           <h1>Image Compressor</h1>
-        </div>
+        </div> */}
 
         <Row className="mt-5">
           <Col xl="4" lg="4" md="12" sm="12">
