@@ -47,9 +47,9 @@ function PrimaryHeader() {
               <LinkContainer to="/video-poster" className="headerLinksMain">
                 <Nav.Link>Video Poster</Nav.Link>
               </LinkContainer>
-              {/* <LinkContainer to="/pdf-organizer" className="headerLinksMain">
+              <LinkContainer to="/pdf-organizer" className="headerLinksMain">
                 <Nav.Link>PDF Organizer</Nav.Link>
-              </LinkContainer> */}
+              </LinkContainer>
             </Nav>
           </Navbar.Collapse>
         </Container>
