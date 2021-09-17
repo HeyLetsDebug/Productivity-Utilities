@@ -1,39 +1,71 @@
 import "../styles/materialStyle.css";
 import "../styles/pdfMetaEdit.css";
-import dummyPDF from "../img/dummy-pdf-placeholder.pdf";
+import PDFImgPlaceholder from "../img/pdf-placeholder.png";
 import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Container, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { PDFDocument } from "pdf-lib";
-import { Document, Page, pdfjs } from "react-pdf";
+import { pdfjs } from "react-pdf";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 export default function PdfMetaEditor() {
   const [disable, setDisable] = useState(false);
-  const [pdfObjectUrl, setPdfObjectUrl] = useState(dummyPDF);
+  const [pdfObjectUrl, setPdfObjectUrl] = useState("");
   const [nameOfFile, setNameOfFile] = useState("");
   const [titleInput, setTitleInput] = useState("");
   const [addtitleInput, setAddtitleInput] = useState("No Title Found");
-  const [pageNumber, setPageNumber] = useState(1);
+  //const [pageNumber, setPageNumber] = useState(1);
 
   const [additionalDetails, setAdditionalDetails] = useState({
-    authorOfPdf: "No Value Found",
-    subjectOfPdf: "No Value Found",
-    creatorOfPdf: "No Value Found",
-    creationDateOfPdf: "",
-    modificationDate: ""
+    authorOfPdf: "No Details Found",
+    subjectOfPdf: "No Details Found",
+    creatorOfPdf: "No Details Found",
+    creationDateOfPdf: "No Details Found",
+    modificationDate: "No Details Found"
   });
 
   const cursorPointer = {
     cursor: "pointer"
   };
-  function onDocumentLoadSuccess({ numPages }) {
-    setPageNumber(1);
-  }
+  // function onDocumentLoadSuccess({ numPages }) {
+  //   setPageNumber(1);
+  // }
 
+  let thePdf = null;
+  let scale = 1;
+  function showPDF(pdf_url) {
+    let someblobber = window.URL.createObjectURL(pdf_url);
+    pdfjs.getDocument({ url: someblobber }).promise.then(function (pdf) {
+      thePdf = pdf;
+      const viewer = document.getElementById("show-first-page-wrapper");
+      let styles = getComputedStyle(viewer),
+        w = parseInt(styles.getPropertyValue("width"), 10),
+        h = parseInt(styles.getPropertyValue("height"), 10);
+      var canvas = document.createElement("canvas");
+      canvas.className = "first-page-canvas";
+      canvas.style.maxWidth = w - 0.03 * w + "px";
+      canvas.style.maxHeight = h - 0.03 * h + "px";
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      viewer.innerHTML = "";
+      viewer.appendChild(canvas);
+      renderPage(1, canvas);
+    });
+  }
+  function renderPage(pageNumber, canvas) {
+    thePdf.getPage(pageNumber).then(function (page) {
+      var viewport = page.getViewport({ scale: scale });
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+      page.render({
+        canvasContext: canvas.getContext("2d"),
+        viewport: viewport
+      });
+    });
+  }
   function handlePDFChange(e) {
     const pdfFile = e.target.files[0];
-
+    showPDF(pdfFile);
     setPdfObjectUrl((pdfObjectUrl) => URL.createObjectURL(pdfFile));
 
     setNameOfFile((nameOfFile) => e.target.files[0].name);
@@ -71,8 +103,10 @@ export default function PdfMetaEditor() {
   }
 
   useEffect(() => {
-    readDocumentMetadata(pdfObjectUrl);
-    setDisable(false);
+    if (pdfObjectUrl !== "") {
+      readDocumentMetadata(pdfObjectUrl);
+      setDisable(false);
+    }
   }, [pdfObjectUrl]);
 
   function handleModify() {
@@ -136,14 +170,17 @@ export default function PdfMetaEditor() {
           <h1>PDF Meta Data Editor</h1>
         </div> */}
         <Row>
-          <Col className="d-flex justify-content-center" xl="5" lg="5" md="5">
-            <Document file={pdfObjectUrl} onLoadSuccess={onDocumentLoadSuccess}>
+          <Col>
+            {/* <Document file={pdfObjectUrl} onLoadSuccess={onDocumentLoadSuccess}>
               <Page
                 pageNumber={pageNumber}
                 scale={0.4}
                 renderAnnotationLayer={false}
               />
-            </Document>
+            </Document> */}
+            <div id="show-first-page-wrapper">
+              <img src={PDFImgPlaceholder} alt="PDF Placeholder Icon" />
+            </div>
           </Col>
           <Col>
             <Row>
@@ -217,11 +254,15 @@ export default function PdfMetaEditor() {
                 </p>
                 <p className="w-100">
                   <strong>Creation Date :</strong>{" "}
-                  {additionalDetails.creationDateOfPdf.toString()}
+                  {additionalDetails.creationDateOfPdf !== undefined
+                    ? additionalDetails.creationDateOfPdf
+                    : "No Value Found"}
                 </p>
                 <p className="w-100">
                   <strong>Modification Date :</strong>{" "}
-                  {additionalDetails.modificationDate.toString()}
+                  {additionalDetails.modificationDate !== undefined
+                    ? additionalDetails.modificationDate
+                    : "No Value Found"}
                 </p>
               </Col>
             </Row>

@@ -24,3 +24,20 @@
   max-height: 500px;
   overflow: auto;
 }
+
+#show-first-page-wrapper {
+  width: 100%;
+  height: 100%;
+  background: #f3f0ec;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3% 0;
+  overflow: hidden;
+}
+#show-first-page-wrapper img {
+  height: 70%;
+}
+.first-page-canvas {
+  border: 1px solid grey;
+}
